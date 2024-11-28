@@ -1,0 +1,7 @@
+DesGen\_page2 module
+====================
+
+.. automodule:: DesGen_page2
+   :members:
+   :undoc-members:
+   :show-inheritance:

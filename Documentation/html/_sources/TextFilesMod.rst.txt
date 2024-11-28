@@ -1,0 +1,7 @@
+TextFilesMod module
+===================
+
+.. automodule:: TextFilesMod
+   :members:
+   :undoc-members:
+   :show-inheritance:
