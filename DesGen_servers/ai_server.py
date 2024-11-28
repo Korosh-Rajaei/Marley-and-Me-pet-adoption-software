@@ -3,7 +3,7 @@ import cohere
 # from codecarbon import EmissionsTracker
 app = Flask(__name__)
 # connect tp cohere using a valid API key
-COHERE_API_KEY = "bTzl4FKfsJAKXUxvBcLJxby4XUwm6bTdDxlmkR0D"
+COHERE_API_KEY = "API_KEY"
 co = cohere.Client(COHERE_API_KEY)
 # Initialize CodeCarbon tracker
 # tracker = EmissionsTracker(allow_multiple_runs=True)
