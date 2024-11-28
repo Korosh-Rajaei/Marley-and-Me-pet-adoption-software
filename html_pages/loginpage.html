@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Shelter Login</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #fbeae4;
+            text-align: center;
+        }
+        .header img {
+            width: 100%;
+            max-width: 6000px;
+            height: auto;
+            margin: -20px 0;
+        }
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            background-color: #ffe4e1;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-size: 1.2em;
+            display: block;
+            margin: 10px 0;
+        }
+        input {
+            width: 95%;
+            padding: 10px;
+            border: 2px solid #f3a3a3;
+            border-radius: 20px;
+            background-color: #ffc6c6;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #444;
+        }
+        .footer {
+            margin-top: 20px;
+        }
+        .footer button {
+            background-color: #ffb6c1;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="img/welcomeback.jpg" alt="Welcome Back">
+    </div>
+    <div class="container">
+        <form>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button onclick="window.location.href='homepage.html'">Login</button>
+        </form>
+        <div class="footer">
+            <button onclick="window.location.href='welcomepage.html'">Home</button>
+        </div>
+    </div>
+</body>
+</html>

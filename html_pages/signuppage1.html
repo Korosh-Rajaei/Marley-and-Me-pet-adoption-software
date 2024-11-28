@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawPals Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe4e1;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .header {
+            width: 100%;
+            background-color: #ffe4e1;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .header img {
+            width: 100%;
+            max-width: 6000px;
+            height: auto;
+            margin: -20px 0;
+        }
+
+        .form-container {
+            background-color: #ffe4e1;
+            width: 400px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 95%;
+            padding: 10px;
+            border: 2px solid #ff91a4;
+            border-radius: 25px;
+            background-color: #ffff;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .form-group input:focus {
+            border-color: #ff6d82;
+        }
+
+        .btn-container {
+            text-align: center;
+        }
+
+        .btn-container button {
+            background-color: #ff91a4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn-container button:hover {
+            background-color: #ff6d82;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="img/Sign up page.jpg" alt="PawPals Logo">
+    </div>
+    <div class="form-container">
+        <h1>Fill Out Your Details</h1>
+        <form>
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="Enter your first name">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Enter your last name">
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" placeholder="Enter your age">
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <input type="text" id="gender" name="gender" placeholder="Enter your gender">
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number">
+            </div>
+            <div class="btn-container">
+                <button type="button" onclick="window.location.href='signuppage2.html'">Sign Up</button>
+
+            </div>
+        </form>
+    </div>
+</body>
+</html>
