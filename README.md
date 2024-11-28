@@ -7,5 +7,5 @@ Contributors:
   -Python programming: Korosh Rajaei  
   -HTML/CSS and design of the interface: Emre Uysal, Amirhossein Shahsavari  
   -OpenNMT training: Korosh Rajaei, Emre Uysal, Amirhossein Shahsavari  
-  -Founding and the choice of the dataset for OpenNMT training: Linda Selles, Sterre Zwart  
+  -Finding and the choice of the dataset for OpenNMT training: Linda Selles, Sterre Zwart  
 Screen shots of interfaces and servers are also uploaded to the repository.
