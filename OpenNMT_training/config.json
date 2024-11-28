@@ -1,0 +1,21 @@
+{
+    "models_root": "./models",  // Directory containing your model files
+    "models": [
+        {   
+            "id": 1,  // Unique ID for the model
+            "model": "model.fren_step_3000.pt",  // Path to your trained model file
+            "timeout": 600,  // Timeout in seconds
+            "on_timeout": "to_cpu",  // Move model to CPU after timeout
+            "load": true,  // Load model on startup
+            "opt": {
+                "gpu": 0,  // Use GPU 0 (set to -1 to use CPU)
+                "beam_size": 5  // Beam search size
+            },
+            "tokenizer": {
+                "type": "sentencepiece",  // Type of tokenizer
+                "src_model": "source.model",  // Path to source tokenizer model
+                "tgt_model": "target.model"  // Path to target tokenizer model
+            }
+        }
+    ]
+}
