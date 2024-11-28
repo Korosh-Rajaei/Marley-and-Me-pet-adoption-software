@@ -1,0 +1,204 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DescriptionGenerator &mdash; Marley&amp;Me_software_documentation 1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=29a6c3e3"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Marley&Me_software_documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Marley&Me_software_documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">DescriptionGenerator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for DescriptionGenerator</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">cohere</span>
+<span class="kn">from</span> <span class="nn">cohere</span> <span class="kn">import</span> <span class="n">Client</span>
+<div class="viewcode-block" id="DescriptionGenerationError">
+<a class="viewcode-back" href="../DescriptionGenerator.html#DescriptionGenerator.DescriptionGenerationError">[docs]</a>
+<span class="k">class</span> <span class="nc">DescriptionGenerationError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error related to the API and AI/LLM description generation&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="DescriptionGeneratorClass">
+<a class="viewcode-back" href="../DescriptionGenerator.html#DescriptionGenerator.DescriptionGeneratorClass">[docs]</a>
+<span class="k">class</span> <span class="nc">DescriptionGeneratorClass</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; A class that creates/generates descriptions of pets using GenAI and a LLM powered by Cohere &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="DescriptionGeneratorClass.connect_to_cohere">
+<a class="viewcode-back" href="../DescriptionGenerator.html#DescriptionGenerator.DescriptionGeneratorClass.connect_to_cohere">[docs]</a>
+    <span class="k">def</span> <span class="nf">connect_to_cohere</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        this function connect to the cohere api and checks if the given api is correct.</span>
+<span class="sd">        :param: api_key</span>
+<span class="sd">        :return: true/False</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">api_key</span><span class="p">,</span><span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span> <span class="o">==</span> <span class="mi">40</span><span class="p">:</span>
+                
+                <span class="n">co</span> <span class="o">=</span> <span class="n">cohere</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">co</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;connected to API!&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">co</span>
+                
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;API is not valid!&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="DescriptionGeneratorClass.InfoChecking">
+<a class="viewcode-back" href="../DescriptionGenerator.html#DescriptionGenerator.DescriptionGeneratorClass.InfoChecking">[docs]</a>
+    <span class="k">def</span> <span class="nf">InfoChecking</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">pet_info</span><span class="p">,</span><span class="n">other</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        this function checks whether the given information about the pet is correct and it check for each input type. </span>
+<span class="sd">        if all information are correct, then the function return a prompt about the pet&#39;s information.</span>
+<span class="sd">        :param: pet_info, other</span>
+<span class="sd">        :return: prompt based on info/False</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">final_pet_info</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span> <span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span> <span class="p">,</span> <span class="s1">&#39;breed&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;vacc&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;age&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">}</span>
+        <span class="n">situation</span><span class="o">=</span><span class="kc">True</span>
+        <span class="n">problem</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+        <span class="n">strings</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">,</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;breed&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span><span class="s1">&#39;vacc&#39;</span><span class="p">,</span><span class="s1">&#39;color&#39;</span><span class="p">]</span>
+        <span class="n">more_than_two_str</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">,</span><span class="s1">&#39;type&#39;</span><span class="p">,</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;breed&#39;</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">final_pet_info</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">pet_info</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">situation</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">problem</span><span class="o">=</span><span class="s2">&quot;age&quot;</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Wrong value for a number variable!&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">more_than_two_str</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pet_info</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">:</span>
+                <span class="n">situation</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">problem</span><span class="o">=</span><span class="n">i</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">final_pet_info</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">pet_info</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">pet_info</span><span class="p">[</span><span class="s1">&#39;vacc&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="s1">&#39;none&#39;</span><span class="p">,</span><span class="s1">&#39;yes&#39;</span><span class="p">,</span><span class="s1">&#39;no&#39;</span><span class="p">,</span><span class="s1">&#39;Yes&#39;</span><span class="p">,</span><span class="s1">&#39;No&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">]:</span>
+            <span class="n">final_pet_info</span><span class="p">[</span><span class="s1">&#39;vacc&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pet_info</span><span class="p">[</span><span class="s1">&#39;vacc&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">situation</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">problem</span><span class="o">=</span><span class="s1">&#39;vaccination&#39;</span>
+
+        <span class="k">if</span> <span class="n">pet_info</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;m&#39;</span><span class="p">,</span><span class="s1">&#39;f&#39;</span><span class="p">,</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="s1">&#39;none&#39;</span><span class="p">,</span><span class="s1">&#39;male&#39;</span><span class="p">,</span><span class="s1">&#39;female&#39;</span><span class="p">,</span><span class="s1">&#39;Male&#39;</span><span class="p">,</span><span class="s1">&#39;Female&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">]:</span>
+            <span class="n">final_pet_info</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pet_info</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">situation</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">problem</span><span class="o">=</span><span class="s1">&#39;sex&#39;</span>
+        <span class="k">if</span> <span class="n">situation</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;All information about pet was in good order. Checking is done!&quot;</span><span class="p">)</span>
+            <span class="n">desc</span><span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;the pet is a </span><span class="si">{</span><span class="n">final_pet_info</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> and its name is </span><span class="si">{</span><span class="n">final_pet_info</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">. Its sex is: </span><span class="si">{</span><span class="n">final_pet_info</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">. This pet is </span><span class="si">{</span><span class="n">final_pet_info</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> year(s) old. This </span><span class="si">{</span><span class="n">final_pet_info</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> is a </span><span class="si">{</span><span class="n">final_pet_info</span><span class="p">[</span><span class="s1">&#39;breed&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> and its color is </span><span class="si">{</span><span class="n">final_pet_info</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">.Vaccination status: </span><span class="si">{</span><span class="n">final_pet_info</span><span class="p">[</span><span class="s1">&#39;vacc&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">. Other details: </span><span class="si">{</span><span class="n">other</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="k">return</span> <span class="n">desc</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;an entered value was wrong. entered value for </span><span class="si">{</span><span class="n">problem</span><span class="si">}</span><span class="s2"> is wrong!  </span><span class="si">{</span><span class="n">pet_info</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+          
+<div class="viewcode-block" id="DescriptionGeneratorClass.generate_pet_description">
+<a class="viewcode-back" href="../DescriptionGenerator.html#DescriptionGenerator.DescriptionGeneratorClass.generate_pet_description">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_pet_description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">pet_details</span><span class="p">,</span><span class="n">coh</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        this function generate the description of the pet.</span>
+<span class="sd">        :param: pet_details (details of the pet),coh (the cohere server)</span>
+<span class="sd">        :return: generated_description/ False</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pet_details</span><span class="p">,</span><span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pet_details</span><span class="p">,</span><span class="nb">str</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="s1">&#39;pet&#39;</span> <span class="ow">in</span> <span class="n">pet_details</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span><span class="p">(</span><span class="s1">&#39;dog&#39;</span> <span class="ow">in</span> <span class="n">pet_details</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span><span class="p">(</span><span class="s1">&#39;cat&#39;</span> <span class="ow">in</span> <span class="n">pet_details</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span><span class="p">(</span><span class="s1">&#39;vaccination&#39;</span> <span class="ow">in</span> <span class="n">pet_details</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">coh</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+                    <span class="n">model</span><span class="o">=</span><span class="s1">&#39;command-r-08-2024&#39;</span><span class="p">,</span>
+                    <span class="n">prompt</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;create a prompt about a pet to be adopted. just give the description text and try to give everything in less than 150 tokens. without any quotation marks (single/double) the details:</span><span class="si">{</span><span class="n">pet_details</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">max_tokens</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+                <span class="n">generated_description</span><span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">generations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span> <span class="o">+</span> <span class="s2">&quot;&quot;</span>
+                <span class="n">final_description</span><span class="o">=</span><span class="n">generated_description</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">final_description</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">DescriptionGenerationError</span><span class="p">(</span><span class="s2">&quot;An error has occured which is related to the API or AI/LLM description generation. check your API!&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Korosh_Rajaei.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

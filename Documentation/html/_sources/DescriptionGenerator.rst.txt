@@ -1,0 +1,7 @@
+DescriptionGenerator module
+===========================
+
+.. automodule:: DescriptionGenerator
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,291 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DesGen_page2 &mdash; Marley&amp;Me_software_documentation 1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=29a6c3e3"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Marley&Me_software_documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Marley&Me_software_documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">DesGen_page2</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for DesGen_page2</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">dash</span> <span class="kn">import</span> <span class="n">Dash</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">dcc</span>
+<span class="kn">from</span> <span class="nn">dash.dependencies</span> <span class="kn">import</span> <span class="n">Output</span><span class="p">,</span> <span class="n">Input</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">TextFilesMod</span> <span class="kn">import</span> <span class="n">TextFilesModClass</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Dash</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="c1">#html using dash</span>
+<span class="n">app</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+    <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+        <span class="c1"># Header</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">Header</span><span class="p">(</span>
+            <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s2">&quot;#000&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;flex&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;justifyContent&quot;</span><span class="p">:</span> <span class="s2">&quot;space-between&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;alignItems&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;15px 30px&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">H1</span><span class="p">(</span>
+                    <span class="s2">&quot;Marley&amp;Me&quot;</span><span class="p">,</span>
+                    <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;fontFamily&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;Georgia&#39;, serif&quot;</span><span class="p">,</span> <span class="s2">&quot;margin&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">},</span>
+                <span class="p">),</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">Nav</span><span class="p">(</span>
+                    <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;flex&quot;</span><span class="p">,</span> <span class="s2">&quot;gap&quot;</span><span class="p">:</span> <span class="s2">&quot;15px&quot;</span><span class="p">},</span>
+                    <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">A</span><span class="p">(</span>
+                            <span class="s2">&quot;Home&quot;</span><span class="p">,</span>
+                            <span class="n">href</span><span class="o">=</span><span class="s2">&quot;homepage.html&quot;</span><span class="p">,</span>
+                            <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;textDecoration&quot;</span><span class="p">:</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;fontWeight&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;5px 10px&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;borderRadius&quot;</span><span class="p">:</span> <span class="s2">&quot;5px&quot;</span><span class="p">,</span>
+                            <span class="p">},</span>
+                            <span class="n">className</span><span class="o">=</span><span class="s2">&quot;active&quot;</span><span class="p">,</span>
+                        <span class="p">),</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">A</span><span class="p">(</span>
+                            <span class="s2">&quot;About Us&quot;</span><span class="p">,</span>
+                            <span class="n">href</span><span class="o">=</span><span class="s2">&quot;aboutus.html&quot;</span><span class="p">,</span>
+                            <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;textDecoration&quot;</span><span class="p">:</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;fontWeight&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;5px 10px&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;borderRadius&quot;</span><span class="p">:</span> <span class="s2">&quot;5px&quot;</span><span class="p">,</span>
+                            <span class="p">},</span>
+                        <span class="p">),</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">A</span><span class="p">(</span>
+                            <span class="s2">&quot;Contact Us&quot;</span><span class="p">,</span>
+                            <span class="n">href</span><span class="o">=</span><span class="s2">&quot;contactus.html&quot;</span><span class="p">,</span>
+                            <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;textDecoration&quot;</span><span class="p">:</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;fontWeight&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;5px 10px&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;borderRadius&quot;</span><span class="p">:</span> <span class="s2">&quot;5px&quot;</span><span class="p">,</span>
+                            <span class="p">},</span>
+                        <span class="p">),</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">A</span><span class="p">(</span>
+                            <span class="s2">&quot;My Account&quot;</span><span class="p">,</span>
+                            <span class="n">href</span><span class="o">=</span><span class="s2">&quot;myaccount.html&quot;</span><span class="p">,</span>
+                            <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;textDecoration&quot;</span><span class="p">:</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;fontWeight&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;5px 10px&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;borderRadius&quot;</span><span class="p">:</span> <span class="s2">&quot;5px&quot;</span><span class="p">,</span>
+                            <span class="p">},</span>
+                        <span class="p">),</span>
+                    <span class="p">],</span>
+                <span class="p">),</span>
+            <span class="p">],</span>
+        <span class="p">),</span>
+        <span class="c1"># Main Content</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+            <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s2">&quot;#d9c2c6&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;margin&quot;</span><span class="p">:</span> <span class="s2">&quot;20px auto&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;20px&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;90%&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;maxWidth&quot;</span><span class="p">:</span> <span class="s2">&quot;600px&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;borderRadius&quot;</span><span class="p">:</span> <span class="s2">&quot;15px&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;boxShadow&quot;</span><span class="p">:</span> <span class="s2">&quot;0px 4px 6px rgba(0, 0, 0, 0.1)&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+                <span class="c1"># Image Container</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+                    <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;flex&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;justifyContent&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;gap&quot;</span><span class="p">:</span> <span class="s2">&quot;15px&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;marginBottom&quot;</span><span class="p">:</span> <span class="s2">&quot;20px&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">Img</span><span class="p">(</span>
+                            <span class="n">src</span><span class="o">=</span><span class="s2">&quot;img/Baxter1.jpg&quot;</span><span class="p">,</span>  <span class="c1"># Replace with actual image URL</span>
+                            <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;Baxter Image 1&quot;</span><span class="p">,</span>
+                            <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;45%&quot;</span><span class="p">,</span> <span class="s2">&quot;borderRadius&quot;</span><span class="p">:</span> <span class="s2">&quot;10px&quot;</span><span class="p">},</span>
+                        <span class="p">),</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">Img</span><span class="p">(</span>
+                            <span class="n">src</span><span class="o">=</span><span class="s2">&quot;img/Baxter2.jpg&quot;</span><span class="p">,</span>  <span class="c1"># Replace with actual image URL</span>
+                            <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;Baxter Image 2&quot;</span><span class="p">,</span>
+                            <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;45%&quot;</span><span class="p">,</span> <span class="s2">&quot;borderRadius&quot;</span><span class="p">:</span> <span class="s2">&quot;10px&quot;</span><span class="p">},</span>
+                        <span class="p">),</span>
+                    <span class="p">],</span>
+                <span class="p">),</span>
+                <span class="c1"># Title</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+                    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;pet-name&quot;</span><span class="p">,</span>
+                    <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s2">&quot;fontSize&quot;</span><span class="p">:</span> <span class="s2">&quot;2em&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;fontWeight&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;margin&quot;</span><span class="p">:</span> <span class="s2">&quot;10px 0&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="n">children</span><span class="o">=</span><span class="p">[]</span>
+                <span class="p">),</span>
+                <span class="c1"># Description</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+                    <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+                    <span class="n">html</span><span class="o">.</span><span class="n">P</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;dynamic-text&#39;</span><span class="p">),</span>
+                    <span class="n">dcc</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;interval&#39;</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">500</span><span class="p">),</span>  <span class="c1"># Check file every 2 seconds</span>
+                        <span class="p">]</span>
+                <span class="p">),</span>
+                <span class="c1"># Actions</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+                    <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s2">&quot;marginTop&quot;</span><span class="p">:</span> <span class="s2">&quot;20px&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;flex&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;justifyContent&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;gap&quot;</span><span class="p">:</span> <span class="s2">&quot;20px&quot;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">A</span><span class="p">(</span>
+                            <span class="s2">&quot;Submit&quot;</span><span class="p">,</span>
+                            <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;submit button&quot;</span><span class="p">,</span>
+                            <span class="n">href</span><span class="o">=</span><span class="s2">&quot;assets/html/adminpage3.html&quot;</span><span class="p">,</span>        
+                            <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;margin-top&quot;</span> <span class="p">:</span><span class="s2">&quot;10px&quot;</span><span class="p">,</span><span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;10px 20px&quot;</span><span class="p">,</span> <span class="s2">&quot;fontSize&quot;</span><span class="p">:</span> <span class="s2">&quot;1em&quot;</span><span class="p">,</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s2">&quot;#f48cb7&quot;</span><span class="p">,</span> <span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="s2">&quot;borderRadius&quot;</span><span class="p">:</span> <span class="s2">&quot;20px&quot;</span><span class="p">,</span><span class="s2">&quot;cursor&quot;</span><span class="p">:</span> <span class="s2">&quot;pointer&quot;</span><span class="p">,</span><span class="s2">&quot;text-decoration&quot;</span><span class="p">:</span><span class="s2">&quot;none&quot;</span><span class="p">,</span><span class="s2">&quot;color&quot;</span><span class="p">:</span><span class="s2">&quot;black&quot;</span><span class="p">,},</span>
+                        <span class="p">),</span>
+                    <span class="p">],</span>
+                <span class="p">),</span>
+            <span class="p">],</span>
+        <span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1">#part to update the Name of the pet every interval based on the saved description in dataset/textfile</span>
+<div class="viewcode-block" id="update_name">
+<a class="viewcode-back" href="../DesGen_page2.html#DesGen_page2.update_name">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span>
+    <span class="n">Output</span><span class="p">(</span><span class="s1">&#39;pet-name&#39;</span><span class="p">,</span> <span class="s1">&#39;children&#39;</span><span class="p">),</span>
+    <span class="p">[</span><span class="n">Input</span><span class="p">(</span><span class="s1">&#39;interval&#39;</span><span class="p">,</span> <span class="s1">&#39;n_intervals&#39;</span><span class="p">)]</span>  <span class="c1"># Triggers every interval</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">update_name</span><span class="p">(</span><span class="n">n_intervals</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;this function connects to textfile/database and updates the name of the pet every interval based on the saved description in dataset/textfile&#39;&#39;&#39;</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;DescGenerHist.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">n_intervals</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    
+    <span class="n">name</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">description</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">TextFileEdit</span><span class="o">=</span><span class="n">TextFilesModClass</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">name</span></div>
+
+    
+<span class="c1">#part to update the description of the pet every interval based on the saved description in dataset/textfile</span>
+<div class="viewcode-block" id="update_text">
+<a class="viewcode-back" href="../DesGen_page2.html#DesGen_page2.update_text">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span>
+    <span class="n">Output</span><span class="p">(</span><span class="s1">&#39;dynamic-text&#39;</span><span class="p">,</span> <span class="s1">&#39;children&#39;</span><span class="p">),</span>
+    <span class="p">[</span><span class="n">Input</span><span class="p">(</span><span class="s1">&#39;interval&#39;</span><span class="p">,</span> <span class="s1">&#39;n_intervals&#39;</span><span class="p">)]</span>  <span class="c1"># Triggers every interval</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">update_text</span><span class="p">(</span><span class="n">n_intervals</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;this function connects to textfile/database and updates the description of the pet every interval based on the saved description in dataset/textfile&#39;&#39;&#39;</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;DescGenerHist.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">n_intervals</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    
+    <span class="n">name</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">description</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">TextFileEdit</span><span class="o">=</span><span class="n">TextFilesModClass</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">description</span></div>
+
+    
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run_server</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8073</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Korosh_Rajaei.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

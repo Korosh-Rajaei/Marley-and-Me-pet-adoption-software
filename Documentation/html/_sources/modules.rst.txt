@@ -1,0 +1,15 @@
+documentation
+=============
+
+.. toctree::
+   :maxdepth: 4
+
+   DesGen_ai_server
+   DesGen_app
+   DesGen_orchestrator
+   DesGen_page2
+   DescriptionGenerator
+   MT_ai_server
+   MT_interface_server
+   MT_orchestrator_server
+   TextFilesMod

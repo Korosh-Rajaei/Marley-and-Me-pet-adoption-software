@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DesGen_app &mdash; Marley&amp;Me_software_documentation 1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=29a6c3e3"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Marley&Me_software_documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Marley&Me_software_documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">DesGen_app</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for DesGen_app</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">dash</span> <span class="kn">import</span> <span class="n">Dash</span><span class="p">,</span> <span class="n">dcc</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Output</span><span class="p">,</span> <span class="n">State</span>
+<span class="kn">import</span> <span class="nn">requests</span> 
+<span class="kn">from</span> <span class="nn">TextFilesMod</span> <span class="kn">import</span> <span class="n">TextFilesModClass</span>
+
+<span class="n">ORCHESTRATOR_URL</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:8071&quot;</span> <span class="c1">#url to the orchestrator</span>
+<span class="c1"># Initialize Dash app</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Dash</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="c1"># Layout of the html</span>
+<span class="n">app</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="c1">#Header part of the website</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">Header</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">H1</span><span class="p">(</span><span class="s2">&quot;Marley&amp;Me&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;margin&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}),</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">Nav</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">A</span><span class="p">(</span><span class="s2">&quot;About Us&quot;</span><span class="p">,</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;margin&quot;</span><span class="p">:</span> <span class="s2">&quot;0 10px&quot;</span><span class="p">}),</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">A</span><span class="p">(</span><span class="s2">&quot;Contact Us&quot;</span><span class="p">,</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;margin&quot;</span><span class="p">:</span> <span class="s2">&quot;0 10px&quot;</span><span class="p">}),</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">A</span><span class="p">(</span><span class="s2">&quot;My Animals&quot;</span><span class="p">,</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;margin&quot;</span><span class="p">:</span> <span class="s2">&quot;0 10px&quot;</span><span class="p">}),</span>
+                    <span class="p">],</span>
+                    <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;text-align&quot;</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span><span class="p">},</span>
+                <span class="p">),</span>
+            <span class="p">],</span>
+            <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;background-color&quot;</span><span class="p">:</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;10px 20px&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;flex&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;justify-content&quot;</span><span class="p">:</span> <span class="s2">&quot;space-between&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;align-items&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">),</span>
+        <span class="c1"># Main part of the website</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">H1</span><span class="p">(</span><span class="s2">&quot;Make their story come to life!&quot;</span><span class="p">),</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">P</span><span class="p">(</span><span class="s2">&quot;AI Generated Descriptions for your Furry Friends&quot;</span><span class="p">),</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="c1">#part to receive inputs from the users</span>
+                        <span class="c1">#type</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="s2">&quot;Type of Pet&quot;</span><span class="p">),</span>
+                        <span class="n">dcc</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+                            <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;pet-type&quot;</span><span class="p">,</span>
+                            <span class="n">options</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Dog&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;Dog&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Cat&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;Cat&quot;</span><span class="p">}],</span>
+                            <span class="n">value</span><span class="o">=</span><span class="s2">&quot;Dog&quot;</span><span class="p">,</span>
+                            <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;40px&quot;</span><span class="p">,</span><span class="s2">&quot;margin-bottom&quot;</span><span class="p">:</span><span class="s2">&quot;5px&quot;</span><span class="p">},</span>
+                        <span class="p">),</span>
+                        <span class="c1">#breed</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="s2">&quot;Breed&quot;</span><span class="p">),</span>
+                        <span class="n">dcc</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">&quot;breed&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;Enter breed here&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;40px&quot;</span><span class="p">,</span><span class="s2">&quot;margin-bottom&quot;</span><span class="p">:</span><span class="s2">&quot;5px&quot;</span><span class="p">}),</span>
+                        <span class="c1">#pet&#39;s name</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="s2">&quot;Your Pet&#39;s Name&quot;</span><span class="p">),</span>
+                        <span class="n">dcc</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">&quot;pet-name&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;Enter name here&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;40px&quot;</span><span class="p">,</span><span class="s2">&quot;margin-bottom&quot;</span><span class="p">:</span><span class="s2">&quot;5px&quot;</span><span class="p">}),</span>
+                        <span class="c1">#sex</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="s2">&quot;Sex&quot;</span><span class="p">),</span>
+                        <span class="n">dcc</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+                            <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span>
+                            <span class="n">options</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Male&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;Male&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Female&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;Female&quot;</span><span class="p">}],</span>
+                            <span class="n">value</span><span class="o">=</span><span class="s2">&quot;Male&quot;</span><span class="p">,</span>
+                            <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;40px&quot;</span><span class="p">,</span><span class="s2">&quot;margin-bottom&quot;</span><span class="p">:</span><span class="s2">&quot;5px&quot;</span><span class="p">},</span>
+                        <span class="p">),</span>
+                        <span class="c1">#age</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="s2">&quot;Age&quot;</span><span class="p">),</span>
+                        <span class="n">dcc</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;Enter age here&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;40px&quot;</span><span class="p">,</span><span class="s2">&quot;margin-bottom&quot;</span><span class="p">:</span><span class="s2">&quot;5px&quot;</span><span class="p">}),</span>
+                        <span class="c1">#color</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="s2">&quot;Color&quot;</span><span class="p">),</span>
+                        <span class="n">dcc</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;Enter color here&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;40px&quot;</span><span class="p">,</span><span class="s2">&quot;margin-bottom&quot;</span><span class="p">:</span><span class="s2">&quot;5px&quot;</span><span class="p">}),</span>
+                        <span class="c1">#vaccination</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="s2">&quot;Vaccination&quot;</span><span class="p">),</span>
+                        <span class="n">dcc</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+                            <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;vaccination&quot;</span><span class="p">,</span>
+                            <span class="n">options</span><span class="o">=</span><span class="p">[</span>
+                                <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Up to Date&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;Up to Date&quot;</span><span class="p">},</span>
+                                <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Not Up to Date&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;Not Up to Date&quot;</span><span class="p">},</span>
+                            <span class="p">],</span>
+                            <span class="n">value</span><span class="o">=</span><span class="s2">&quot;Up to Date&quot;</span><span class="p">,</span>
+                            <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;100%&quot;</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;40px&quot;</span><span class="p">,</span><span class="s2">&quot;margin-bottom&quot;</span><span class="p">:</span><span class="s2">&quot;5px&quot;</span><span class="p">},</span>
+                        <span class="p">),</span>
+                        <span class="c1">#generate description part</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="s2">&quot;Generate Description&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;generate-button&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;10px 20px&quot;</span><span class="p">,</span> <span class="s2">&quot;fontSize&quot;</span><span class="p">:</span> <span class="s2">&quot;1em&quot;</span><span class="p">,</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s2">&quot;#f48cb7&quot;</span><span class="p">,</span> <span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="s2">&quot;borderRadius&quot;</span><span class="p">:</span> <span class="s2">&quot;20px&quot;</span><span class="p">,</span> <span class="s2">&quot;cursor&quot;</span><span class="p">:</span> <span class="s2">&quot;pointer&quot;</span><span class="p">,}),</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+                            <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;description-output&quot;</span><span class="p">,</span>
+                            <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                                <span class="s2">&quot;background-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#ffe6e6&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="s2">&quot;2px solid #ff9999&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;10px&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;border-radius&quot;</span><span class="p">:</span> <span class="s2">&quot;10px&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;margin-top&quot;</span><span class="p">:</span> <span class="s2">&quot;10px&quot;</span><span class="p">,</span>
+                            <span class="p">},</span>
+                        <span class="p">),</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+                            <span class="p">[</span>
+                                <span class="c1">#edit description</span>
+                                <span class="n">html</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="s2">&quot;Edit Generated Description&quot;</span><span class="p">),</span>
+                                <span class="n">dcc</span><span class="o">.</span><span class="n">Textarea</span><span class="p">(</span>
+                                    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;edit-description&quot;</span><span class="p">,</span>
+                                    <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                                        <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;90%&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="s2">&quot;100px&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;margin-top&quot;</span><span class="p">:</span> <span class="s2">&quot;10px&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;10px&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="s2">&quot;1px solid #ccc&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;border-radius&quot;</span><span class="p">:</span> <span class="s2">&quot;5px&quot;</span><span class="p">,</span>
+                                    <span class="p">},</span>
+                                <span class="p">),</span>
+                                <span class="n">html</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
+                                    <span class="c1">#update the edited description</span>
+                                    <span class="s2">&quot;Update Description&quot;</span><span class="p">,</span>
+                                    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;update-description-button&quot;</span><span class="p">,</span>
+                                    <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;10px 20px&quot;</span><span class="p">,</span> <span class="s2">&quot;fontSize&quot;</span><span class="p">:</span> <span class="s2">&quot;1em&quot;</span><span class="p">,</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s2">&quot;#f48cb7&quot;</span><span class="p">,</span> <span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="s2">&quot;borderRadius&quot;</span><span class="p">:</span> <span class="s2">&quot;20px&quot;</span><span class="p">,</span><span class="s2">&quot;cursor&quot;</span><span class="p">:</span> <span class="s2">&quot;pointer&quot;</span><span class="p">,},</span>
+                                <span class="p">),</span>
+                            <span class="p">],</span>
+                            <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;margin-top&quot;</span><span class="p">:</span> <span class="s2">&quot;20px&quot;</span><span class="p">},</span>
+                        <span class="p">),</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+                            <span class="c1">#this part is to save the updated description and go the next stage of uploading</span>
+                            <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;final-description-output&quot;</span><span class="p">,</span>
+                            <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                                <span class="s2">&quot;margin-top&quot;</span><span class="p">:</span> <span class="s2">&quot;20px&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;10px&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;background-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#e6ffe6&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="s2">&quot;2px solid #99ff99&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;border-radius&quot;</span><span class="p">:</span> <span class="s2">&quot;10px&quot;</span><span class="p">,</span>
+                            <span class="p">},</span>
+                        <span class="p">),</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
+                            <span class="c1">#save description</span>
+                                    <span class="s2">&quot;Save Description&quot;</span><span class="p">,</span>
+                                    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;save-description&quot;</span><span class="p">,</span>
+                                    <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;margin-top&quot;</span> <span class="p">:</span><span class="s2">&quot;10px&quot;</span><span class="p">,</span><span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;10px 20px&quot;</span><span class="p">,</span> <span class="s2">&quot;fontSize&quot;</span><span class="p">:</span> <span class="s2">&quot;1em&quot;</span><span class="p">,</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s2">&quot;#f48cb7&quot;</span><span class="p">,</span> <span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="s2">&quot;borderRadius&quot;</span><span class="p">:</span> <span class="s2">&quot;20px&quot;</span><span class="p">,</span><span class="s2">&quot;cursor&quot;</span><span class="p">:</span> <span class="s2">&quot;pointer&quot;</span><span class="p">,},</span>
+                        <span class="p">),</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">P</span><span class="p">(</span>
+                            <span class="c1">#massage of successful saving</span>
+                            <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;submit-text&quot;</span><span class="p">,</span>
+                            <span class="n">children</span><span class="o">=</span><span class="p">(</span>
+                                <span class="s2">&quot;&quot;</span>
+                            <span class="p">),</span>
+                        <span class="p">),</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">A</span><span class="p">(</span>
+                            <span class="c1">#next page button</span>
+                            <span class="s2">&quot;Next&quot;</span><span class="p">,</span>
+                            <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;next-page&quot;</span><span class="p">,</span>
+                            <span class="n">href</span><span class="o">=</span><span class="s2">&quot;http://localhost:8073/&quot;</span><span class="p">,</span>        
+                            <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;margin-top&quot;</span> <span class="p">:</span><span class="s2">&quot;10px&quot;</span><span class="p">,</span><span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;10px 20px&quot;</span><span class="p">,</span> <span class="s2">&quot;fontSize&quot;</span><span class="p">:</span> <span class="s2">&quot;1em&quot;</span><span class="p">,</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s2">&quot;#f48cb7&quot;</span><span class="p">,</span> <span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="s2">&quot;borderRadius&quot;</span><span class="p">:</span> <span class="s2">&quot;20px&quot;</span><span class="p">,</span><span class="s2">&quot;cursor&quot;</span><span class="p">:</span> <span class="s2">&quot;pointer&quot;</span><span class="p">,</span><span class="s2">&quot;text-decoration&quot;</span><span class="p">:</span><span class="s2">&quot;none&quot;</span><span class="p">,},</span>
+                        <span class="p">),</span>
+                    <span class="p">],</span>
+                    <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s2">&quot;background-color&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;border-radius&quot;</span><span class="p">:</span> <span class="s2">&quot;10px&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;20px&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;box-shadow&quot;</span><span class="p">:</span> <span class="s2">&quot;0 0 10px rgba(0, 0, 0, 0.1)&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;max-width&quot;</span><span class="p">:</span> <span class="s2">&quot;600px&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;margin&quot;</span><span class="p">:</span> <span class="s2">&quot;0 auto&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;flex&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;flex-direction&quot;</span><span class="p">:</span> <span class="s2">&quot;column&quot;</span><span class="p">,</span>  <span class="c1"># Ensures vertical stacking</span>
+                        <span class="s2">&quot;align-items&quot;</span><span class="p">:</span> <span class="s2">&quot;stretch&quot;</span><span class="p">,</span>   <span class="c1"># Aligns all elements</span>
+                    <span class="p">},</span>
+                <span class="p">),</span>
+            <span class="p">],</span>
+            <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;20px&quot;</span><span class="p">,</span> <span class="s2">&quot;text-align&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">},</span>
+        <span class="p">),</span>
+        
+     
+    <span class="p">]</span>
+<span class="p">)</span>
+<span class="c1"># Callback to handle generated description. It will update the part of description after the description is generated</span>
+<div class="viewcode-block" id="generate_description">
+<a class="viewcode-back" href="../DesGen_app.html#DesGen_app.generate_description">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span>
+    
+    <span class="n">Output</span><span class="p">(</span><span class="s2">&quot;description-output&quot;</span><span class="p">,</span> <span class="s2">&quot;children&quot;</span><span class="p">),</span>
+    <span class="n">Output</span><span class="p">(</span><span class="s2">&quot;edit-description&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">),</span>
+    <span class="n">Input</span><span class="p">(</span><span class="s2">&quot;generate-button&quot;</span><span class="p">,</span> <span class="s2">&quot;n_clicks&quot;</span><span class="p">),</span>
+    <span class="p">[</span>
+        <span class="n">State</span><span class="p">(</span><span class="s2">&quot;pet-type&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">),</span>
+        <span class="n">State</span><span class="p">(</span><span class="s2">&quot;breed&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">),</span>
+        <span class="n">State</span><span class="p">(</span><span class="s2">&quot;pet-name&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">),</span>
+        <span class="n">State</span><span class="p">(</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">),</span>
+        <span class="n">State</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">),</span>
+        <span class="n">State</span><span class="p">(</span><span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">),</span>
+        <span class="n">State</span><span class="p">(</span><span class="s2">&quot;vaccination&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">generate_description</span><span class="p">(</span><span class="n">n_clicks</span><span class="p">,</span> <span class="n">pet_type</span><span class="p">,</span> <span class="n">breed</span><span class="p">,</span> <span class="n">pet_name</span><span class="p">,</span> <span class="n">sex</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">vaccination</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;this function receives the input from the pet&#39;s details and give to the orchestrator and then AI to make a description based on this information&#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">n_clicks</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span> <span class="c1">#do not update the description part yet</span>
+    <span class="c1">#first it sends the info to the orchestrator then to the description generator model server</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ORCHESTRATOR_URL</span><span class="si">}</span><span class="s2">/generate&quot;</span><span class="p">,</span>
+        <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;pet_details&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;pet_type&quot;</span><span class="p">:</span> <span class="n">pet_type</span><span class="p">,</span> <span class="s2">&quot;breed&quot;</span><span class="p">:</span> <span class="n">breed</span><span class="p">,</span> <span class="s2">&quot;pet_name&quot;</span><span class="p">:</span> <span class="n">pet_name</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">:</span> <span class="n">sex</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="n">age</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">,</span> <span class="s2">&quot;vaccination&quot;</span><span class="p">:</span> <span class="n">vaccination</span><span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="c1">#ERROR HANDLING</span>
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;Error in response&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">description</span><span class="p">,</span> <span class="n">description</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Error generating description.&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span></div>
+
+        
+<span class="c1"># part of the code that uses callbak to edit and update the description generated</span>
+<div class="viewcode-block" id="update_description">
+<a class="viewcode-back" href="../DesGen_app.html#DesGen_app.update_description">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span>
+    
+    <span class="n">Output</span><span class="p">(</span><span class="s2">&quot;final-description-output&quot;</span><span class="p">,</span> <span class="s2">&quot;children&quot;</span><span class="p">),</span>
+    <span class="n">Input</span><span class="p">(</span><span class="s2">&quot;update-description-button&quot;</span><span class="p">,</span> <span class="s2">&quot;n_clicks&quot;</span><span class="p">),</span>
+    <span class="n">State</span><span class="p">(</span><span class="s2">&quot;edit-description&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">update_description</span><span class="p">(</span><span class="n">n_clicks</span><span class="p">,</span> <span class="n">edited_text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;this function uses callbak to edit and update the description generated&#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">n_clicks</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">edited_text</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Final Description: </span><span class="si">{</span><span class="n">edited_text</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+    
+<span class="c1">#part of the code to save the updated description</span>
+<div class="viewcode-block" id="submit_description">
+<a class="viewcode-back" href="../DesGen_app.html#DesGen_app.submit_description">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span>
+    
+    <span class="n">Output</span><span class="p">(</span><span class="s2">&quot;submit-text&quot;</span><span class="p">,</span> <span class="s2">&quot;children&quot;</span><span class="p">),</span>
+    <span class="n">Input</span><span class="p">(</span><span class="s2">&quot;save-description&quot;</span><span class="p">,</span> <span class="s2">&quot;n_clicks&quot;</span><span class="p">),</span>
+    <span class="p">[</span><span class="n">State</span><span class="p">(</span><span class="s2">&quot;pet-name&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">),</span>
+    <span class="n">State</span><span class="p">(</span><span class="s2">&quot;final-description-output&quot;</span><span class="p">,</span> <span class="s2">&quot;children&quot;</span><span class="p">),],</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">submit_description</span><span class="p">(</span><span class="n">n_clicks</span><span class="p">,</span><span class="n">pet_name</span><span class="p">,</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;this function saves the updated description into text file/database&#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">n_clicks</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Final Description: &quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">pet_name</span><span class="o">=</span><span class="n">pet_name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="n">text</span><span class="o">=</span><span class="n">pet_name</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span><span class="n">text</span>
+    <span class="n">TextFileEdit</span><span class="o">=</span><span class="n">TextFilesModClass</span><span class="p">()</span>
+    <span class="n">valid_path</span><span class="o">=</span><span class="s2">&quot;DescGenerHist.txt&quot;</span>
+    <span class="c1">#TextFileEdit.OpenTextFile(valid_path)</span>
+    <span class="n">TextFileEdit</span><span class="o">.</span><span class="n">WriteTextFile</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="n">valid_path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;description submitted!&quot;</span></div>
+
+    
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run_server</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8070</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Korosh_Rajaei.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+MT\_ai\_server module
+=====================
+
+.. automodule:: MT_ai_server
+   :members:
+   :undoc-members:
+   :show-inheritance:
