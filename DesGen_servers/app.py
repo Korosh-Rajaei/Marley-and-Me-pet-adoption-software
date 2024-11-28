@@ -224,7 +224,7 @@ def submit_description(n_clicks,pet_name,text):
     text=pet_name+"\n"+text
     TextFileEdit=TextFilesModClass()
     valid_path="DescGenerHist.txt"
-    TextFileEdit.OpenTextFile(valid_path)
+    #TextFileEdit.OpenTextFile(valid_path)
     TextFileEdit.WriteTextFile(text,valid_path)
     return "description submitted!"
     
