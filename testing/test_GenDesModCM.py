@@ -20,7 +20,7 @@ def test_IntegrationDescGenr():
         if not(i in generated_prompt):
             prompt_check = False
     assert prompt_check
-    user_api = "0njc5ApppXMrxWwOxl2x1PJKm6dvTFjFu8RGx6wI" #valid api
+    user_api = "A_VALID_API_KEY" #valid api
     cohere_client=DescGen.connect_to_cohere(user_api)
     #does correct input give correct output? if no, stop testing. testing failed
     if cohere_client != False:
