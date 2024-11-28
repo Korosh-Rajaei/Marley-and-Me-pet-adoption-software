@@ -1,0 +1,17 @@
+-Dash: https://dash.plotly.com/minimal-app  
+  
+-Flask: https://pythonbasics.org/flask-rest-api/  
+https://pythonbasics.org/flask-rest-api/  
+  
+-Unit Testing & pytest: https://docs.pytest.org/en/stable/index.html  
+https://www.dataquest.io/blog/unit-tests-python/  
+https://www.youtube.com/watch?v=etosV2IWBF0  
+  
+-MarianNMT: https://huggingface.co/docs/transformers/en/model_doc/marian  
+  
+-Tatoeba Dataset: https://opus.nlpl.eu/Tatoeba/en&nl/v2023-04-12/Tatoeba  
+
+-OpenNMT: https://github.com/ymoslem/OpenNMT-Tutorial  
+
+-codecarbon: https://mlco2.github.io/codecarbon/usage.html#offline-mode    
+  
