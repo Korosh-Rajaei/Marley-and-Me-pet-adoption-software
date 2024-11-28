@@ -4,7 +4,7 @@ The functions and methods used in the software are tested thoroughly and the tes
   
 We have also trained an OpenNMT model using the Tatoeba dataset. However, due to the limitations of this dataset, we have decided to not use this trained model for our software. Unfortunately, we did not have enough necessary computational resources to train another model based on a bigger and more inclusive dataset. That is the reason we decided to use the pre-trained MarianNMT model for our software.  
   
-Both MT and the description generator models are accessed and implemented through three types of users. Firstly, an interface user that gets input from the user. Then, the given input is passed onto the orchestrator server which then passes the information to the server that contains the AI model. This server will use that information and the implemented model to produce an output. This output is again passed to the orchestrator which will send this information further to the interface output. Thus, the user will be able to view the workings of the AI model.  
+Both MT and the description generator models are accessed and implemented through three types of servers. Firstly, an interface user that gets input from the user. Then, the given input is passed onto the orchestrator server which then passes the information to the server that contains the AI model. This server will use that information and the implemented model to produce an output. This output is again passed to the orchestrator which will send this information further to the interface output. Thus, the user will be able to view the workings of the AI model.  
   
 Contributors:  
   -Python programming: Korosh Rajaei  
