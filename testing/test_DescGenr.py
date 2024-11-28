@@ -9,7 +9,7 @@ def test_ConnectToCohere():
     DescGen = DescriptionGeneratorClass()
     wrong_api_1="odkpaodaopksd"
     wrong_api_2=1234567891234567896541236547896541236547
-    correct_api = "0njc5ApppXMrxWwOxl2x1PJKm6dvTFjFu8RGx6wI"
+    correct_api = "A_VALID_API_KEY"
     api_list=[wrong_api_1,wrong_api_2,correct_api]
     for i in api_list:
         if DescGen.connect_to_cohere(i) == False:
@@ -36,7 +36,7 @@ def test_InfoChecking():
 
 def test_DescGenerator():
     DescGen = DescriptionGeneratorClass()
-    co=cohere.Client("0njc5ApppXMrxWwOxl2x1PJKm6dvTFjFu8RGx6wI")
+    co=cohere.Client("A_VALID_API_KEY")
     wrong_prompt_input_1=23983287642
     wrong_prompt_input_2='sdfw;efmwemoqwkmedoqwkdpoqkwdopkq'
     wrong_prompt_input_3=[22,33,44,56,664,234]
@@ -49,7 +49,7 @@ def test_DescGenerator():
         else:
             assert True
     with pytest.raises(DescriptionGenerationError):
-        coh=cohere.Client("0njc5ApppXMergherhuiiorhFu8RGx6wI") #invalid api or api problems
+        coh=cohere.Client("A_VALID_API_KEY") #invalid api or api problems
         DescGen.generate_pet_description('the pet is a dog and its name is al. Its sex is: m. This pet is 5 year(s) old. This dog is a husky and its color is white.Vaccination status: y.',coh)
 
 def test_WriteTextFile():
@@ -109,7 +109,7 @@ def test_ComponentDescGenr():
         if not(i in generated_prompt):
             prompt_check = False
     assert prompt_check
-    user_api = "0njc5ApppXMrxWwOxl2x1PJKm6dvTFjFu8RGx6wI" #valid api
+    user_api = "A_VALID_API_KEY" #valid api
     cohere_client=DescGen.connect_to_cohere(user_api)
     #does correct input give correct output? if no, stop testing. testing failed
     if cohere_client != False:
