@@ -4,7 +4,7 @@ class TextFilesModClass:
     def OpenTextFile(self,path):
         if os.path.isfile(path):
             f = open(path)
-            print("Text file accessed!:\n")
+            #print("Text file accessed!:\n")
             f.close()
             return True
         else:
@@ -15,7 +15,7 @@ class TextFilesModClass:
             f = open(path,"a")
             f.write(text + "\n")
             f.close()
-            print("writing done!")
+            #print("writing done!")
             return True
         else:
             print("Text file does not exist!:\n")
