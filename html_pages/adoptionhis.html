@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adoption History</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #f2f8f5;
+            color: #333;
+        }
+        
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #000;
+            color: white;
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar .menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar .menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .navbar .menu a:hover {
+            text-decoration: underline;
+        }
+
+        .navbar .account-btn {
+            background-color: #ff91a4;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .navbar .account-btn:hover {
+            background-color: #ff6d82;
+        }
+
+        /* Adoption History Section */
+        .adoption-history {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .adoption-history h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .adoption-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #d8c3d9;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: left;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .card-content h3 {
+            margin: 10px 0;
+            font-size: 20px;
+            color: #444;
+        }
+
+        .card-content p {
+            font-size: 16px;
+            color: #555;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Marley&Me</h1>
+        <nav>
+            <a href="homepage.html">Home</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="contactus.html">Contact Us</a>
+            <a href="myaccount.html">My Account</a>
+        </nav>
+    </header>
+    
+    <!-- Adoption History Section -->
+    <div class="adoption-history">
+        <h1>Adoption History</h1>
+        <div class="adoption-cards">
+            <!-- Card 1 -->
+            <div class="card">
+                <img src="img/Ash.jpg" alt="Ash">
+                <div class="card-content">
+                    <h3>Ash</h3>
+                    <p>Ash has captivating green eyes. Playful and curious, or gentle and affectionate? Looking for a loving home.</p>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="card">
+                <img src="img/Patches.jpg" alt="Patches">
+                <div class="card-content">
+                    <h3>Patches</h3>
+                    <p>Meet Patches, a cute tabby with piercing green eyes. This cutie loves to wander outside in the woods and make hooman friends.</p>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="card">
+                <img src="img/Teddy.jpg" alt="Teddy">
+                <div class="card-content">
+                    <h3>Teddy</h3>
+                    <p>Meet Teddy, a playful and cuddly toy poodle with a heart of gold. This little ball of energy is looking for a loving home.</p>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="card">
+                <img src="img/Charlie.jpg" alt="Charlie">
+                <div class="card-content">
+                    <h3>Charlie</h3>
+                    <p>Charlie, a sweet and fluffy toy poodle puppy, ready to celebrate life with a loving family.</p>
+                </div>
+            </div>
+            <!-- Card 5 -->
+            <div class="card">
+                <img src="img/Phantom.jpg" alt="Phantom">
+                <div class="card-content">
+                    <h3>Phantom</h3>
+                    <p>Phantom, a sleek and mysterious black cat with captivating green eyes. This elegant feline is looking for a loving home.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

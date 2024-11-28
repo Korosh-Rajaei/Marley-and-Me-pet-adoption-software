@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #d3e6dc;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #000;
+            color: white;
+            padding: 15px 30px;
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar .menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar .menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .navbar .menu a:hover {
+            text-decoration: underline;
+        }
+
+        .navbar .account-btn {
+            background-color: #ff91a4;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .navbar .account-btn:hover {
+            background-color: #ff6d82;
+        }
+
+        .profile-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            margin-top: 30px;
+            padding: 20px;
+        }
+
+        .profile-sidebar {
+            text-align: center;
+            margin-right: 40px;
+        }
+
+        .profile-sidebar img {
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-buttons button {
+            display: block;
+            width: 200px;
+            margin: 10px auto;
+            padding: 10px;
+            background-color: #b19cd9;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .sidebar-buttons button:hover {
+            background-color: #9370d8;
+        }
+
+        .profile-content {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        .profile-content h2 {
+            background-color: #a59e9e;
+            color: white;
+            text-align: center;
+            border-radius: 20px;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+
+        .info-group {
+            margin-bottom: 15px;
+        }
+
+        .info-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .info-group .value {
+            background-color: #ffd2da;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #ff91a4;
+            font-size: 16px;
+        }
+
+        .signout-btn {
+            background-color: #ff91a4;
+            padding: 10px 20px;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .signout-btn:hover {
+            background-color: #ff6d82;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Marley&Me</h1>
+        <nav>
+            <a href="homepage.html">Home</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="contactus.html">Contact Us</a>
+            <a href = "#" class="active">My Account</a>
+        </nav>
+    </header>
+
+    <div class="profile-container">
+        <div class="profile-sidebar">
+            <img src="img/Profile picture.jpg" alt="Profile Picture">
+            <div class="sidebar-buttons">
+                <button onclick="window.location.href='adoptionhis.html'">Adoption History</button>
+
+                <button>Payment Methods</button>
+                <button>Billing/Payments</button>
+                
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <h2>Purrsonal Information</h2>
+            <div class="info-group">
+                <label>Name:</label>
+                <div class="value">Korosh Rajaei</div>
+            </div>
+            <div class="info-group">
+                <label>Country/Region:</label>
+                <div class="value">Netherlands</div>
+            </div>
+            <div class="info-group">
+                <label>E-mail:</label>
+                <div class="value">koroshrajaei@gmail.com</div>
+            </div>
+            <div class="info-group">
+                <label>Adopted Pet:</label>
+                <div class="value">5</div>
+            </div>
+            <button class="signout-btn" onclick="window.location.href='loginpage.html'">Sign out</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-Up Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe4e1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .form-container {
+            background-color: #ffe4e1;
+            padding: 20px;
+            border-radius: 15px;
+            width: 400px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: 100%;
+            height: 40px;
+            border: 2px solid #ff91a4;
+            border-radius: 20px;
+            padding: 0 15px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            background-color: #ff91a4;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .password-requirements {
+            font-size: 14px;
+            color: #555;
+            border: 1px solid #ff91a4;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+            background-color: #ffe4e1;
+        }
+
+        .password-requirements ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .logo img {
+            width: 100px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="logo">
+            <img src="img/Profile picture.jpg" alt="PawPals Logo">
+        </div>
+        <h1>Create Account</h1>
+        <form>
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" required>
+            
+            <label for="confirm-password">Enter your password again</label>
+            <input type="password" id="confirm-password" placeholder="Re-enter your password" required>
+            
+            <button type="submit" class="btn" onclick="window.location.href='loginpage.html'">Create Account</button>
+
+        </form>
+        <div class="password-requirements">
+            <p>Your password must contain:</p>
+            <ul>
+                <li>At least 8 letters</li>
+                <li>At least 1 special letter (#$ %&*@...)</li>
+                <li>At least 1 number</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

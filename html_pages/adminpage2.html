@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baxter's Profile</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e3f0eb;
+        }
+
+        header {
+            background-color: #000;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+        }
+
+        header h1 {
+            font-family: 'Georgia', serif;
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background-color: #f8bfc3;
+        }
+
+        /* Content Styles */
+        .content {
+            background-color: #d9c2c6;
+            margin: 20px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .image-container img {
+            width: 45%;
+            border-radius: 10px;
+        }
+
+        .title {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .description {
+            font-size: 1em;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .actions button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #ffc6c6;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .actions button:hover {
+            background-color: #f3a3a3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Marley&Me</h1>
+        <nav>
+            <a href="homepage.html">Home</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="contactus.html">Contact Us</a>
+            <a href="myaccount.html">My Account</a>
+        </nav>
+    </header>
+    <div class="content">
+        <div class="image-container">
+            <img src="img/Baxter1.jpg" alt="Baxter Image 1"> <!-- Replace with actual image URL -->
+            <img src="img/Baxter2.jpg" alt="Baxter Image 2"> <!-- Replace with actual image URL -->
+        </div>
+        <div class="title">Baxter</div>
+        <div class="description">
+            Meet Baxter, a medium-sized, charmingly scruffy dog with a heart of gold! Baxter has a soft, wavy coat that’s a mix of warm caramel and creamy white, giving him an irresistibly huggable look. His ears are floppy and perk up when he's curious, which is often, as he's a naturally inquisitive dog who loves exploring his surroundings.<br><br>
+            Baxter’s eyes are a deep, soulful brown, always full of warmth and a hint of mischief. He's the type of dog who'll greet you at the door with a wagging tail, bringing you his favorite toy as a welcome gift. Friendly with everyone, he gets along well with other pets and loves playing with kids.<br><br>
+            Loyal, playful, and gentle, Baxter's the perfect mix of energy and calmness. Whether it's an outdoor adventure or a cozy nap by your side, he's happiest when he's with his family.
+        </div>
+        <div class="actions">
+            <button>Edit</button>
+            <button>Submit</button>
+        </div>
+    </div>
+</body>
+</html>

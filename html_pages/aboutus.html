@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #e3f0eb;
+    }
+
+    header {
+      background-color: #000;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    header h1 {
+      font-family: 'Georgia', serif;
+      margin: 0;
+    }
+
+    nav {
+      display: flex;
+      gap: 15px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background-color: #f8bfc3;
+    }
+
+    /* About Section */
+    .about-section {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 40px;
+    }
+
+    .about-section img {
+      width: 25%;
+      max-width: 300px;
+    }
+
+    .about-text {
+      max-width: 50%;
+      font-size: 18px;
+      color: #333;
+      line-height: 1.8;
+    }
+
+    .about-text strong {
+      font-weight: bold;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #000;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Marley&Me</h1>
+    <nav>
+      <a href="homepage.html">Home</a>
+      <a href="#" class="active">About Us</a>
+      <a href="contactus.html">Contact Us</a>
+      <a href="myaccount.html">My Account</a>
+    </nav>
+  </header>
+
+  <section>
+    <img src="img/About us.jpg" alt="About Us" style="display: block; width: 100%; height: auto;">
+  </section>
+
+  <section class="about-section">
+    <img src="img/about us double.jpg" alt="About Us Graphic">
+    <div class="about-text">
+      <p>
+        <strong>Marley&Me</strong> came to life with the purpose of making the adoption process easier, with an advanced AI solution that provides a unique description for each lonely friend looking for a partner.
+      </p>
+      <p>
+        By doing so, we aim to make sure that no animal gets overlooked when potential owners are scouting adoption websites.
+      </p>
+    </div>
+    <img src="img/about us double.jpg" alt="PawPals Icon">
+  </section>
+
+  <footer>
+    &copy; 2024 Marley&Me. All Rights Reserved.
+  </footer>
+</body>
+</html>
