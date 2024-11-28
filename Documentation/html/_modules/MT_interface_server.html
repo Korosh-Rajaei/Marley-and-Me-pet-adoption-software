@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MT_interface_server &mdash; Marley&amp;Me_software_documentation 1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=29a6c3e3"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Marley&Me_software_documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Marley&Me_software_documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">MT_interface_server</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for MT_interface_server</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">dash</span> <span class="kn">import</span> <span class="n">Dash</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">dcc</span><span class="p">,</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Output</span><span class="p">,</span> <span class="n">State</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">jsonify</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="c1"># Initialize Dash app</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Dash</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1"># Layout of the html</span>
+<span class="n">app</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;margin&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fontFamily&quot;</span><span class="p">:</span> <span class="s2">&quot;&#39;Arial&#39;, sans-serif&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s2">&quot;#e7f2f4&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#ffffff&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;textAlign&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+        <span class="c1">#Header part of the website</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">Header</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">H1</span><span class="p">(</span><span class="s2">&quot;Marley&amp;Me&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;margin&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}),</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">Nav</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">A</span><span class="p">(</span><span class="s2">&quot;About Us&quot;</span><span class="p">,</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;margin&quot;</span><span class="p">:</span> <span class="s2">&quot;0 10px&quot;</span><span class="p">}),</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">A</span><span class="p">(</span><span class="s2">&quot;Contact Us&quot;</span><span class="p">,</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;margin&quot;</span><span class="p">:</span> <span class="s2">&quot;0 10px&quot;</span><span class="p">}),</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">A</span><span class="p">(</span><span class="s2">&quot;My Animals&quot;</span><span class="p">,</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;margin&quot;</span><span class="p">:</span> <span class="s2">&quot;0 10px&quot;</span><span class="p">}),</span>
+                    <span class="p">],</span>
+                    <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;text-align&quot;</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span><span class="p">},</span>
+                <span class="p">),</span>
+            <span class="p">],</span>
+            <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;background-color&quot;</span><span class="p">:</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;10px 20px&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;flex&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;justify-content&quot;</span><span class="p">:</span> <span class="s2">&quot;space-between&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;align-items&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">),</span>
+        <span class="c1"># Main part of the website</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+            <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s2">&quot;#9d8189&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;margin&quot;</span><span class="p">:</span> <span class="s2">&quot;20px auto&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;20px&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;90%&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;maxWidth&quot;</span><span class="p">:</span> <span class="s2">&quot;600px&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;borderRadius&quot;</span><span class="p">:</span> <span class="s2">&quot;15px&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;boxShadow&quot;</span><span class="p">:</span> <span class="s2">&quot;0px 4px 6px rgba(0, 0, 0, 0.1)&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+                
+                <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+                    <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;flex&quot;</span><span class="p">,</span> <span class="s2">&quot;justifyContent&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="s2">&quot;gap&quot;</span><span class="p">:</span> <span class="s2">&quot;15px&quot;</span><span class="p">,</span> <span class="s2">&quot;marginBottom&quot;</span><span class="p">:</span> <span class="s2">&quot;20px&quot;</span><span class="p">},</span>
+                    <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+                    <span class="n">html</span><span class="o">.</span><span class="n">Img</span><span class="p">(</span>
+                            <span class="n">src</span><span class="o">=</span><span class="s2">&quot;assets/img/Artemis1.jpg&quot;</span><span class="p">,</span>
+                            <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;Baxter Image 1&quot;</span><span class="p">,</span>
+                            <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;45%&quot;</span><span class="p">,</span> <span class="s2">&quot;borderRadius&quot;</span><span class="p">:</span> <span class="s2">&quot;10px&quot;</span><span class="p">},</span>
+                        <span class="p">),</span>
+                    <span class="n">html</span><span class="o">.</span><span class="n">Img</span><span class="p">(</span>
+                            <span class="n">src</span><span class="o">=</span><span class="s2">&quot;assets/img/Artemis2.jpg&quot;</span><span class="p">,</span>
+                            <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;Baxter Image 2&quot;</span><span class="p">,</span>
+                            <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;45%&quot;</span><span class="p">,</span> <span class="s2">&quot;borderRadius&quot;</span><span class="p">:</span> <span class="s2">&quot;10px&quot;</span><span class="p">},</span>
+                        <span class="p">),</span>
+                    <span class="p">],</span>
+                <span class="p">),</span>
+                <span class="c1"># Name of the pet</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+                    <span class="s2">&quot;Artemis&quot;</span><span class="p">,</span>
+                    <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;fontSize&quot;</span><span class="p">:</span> <span class="s2">&quot;2em&quot;</span><span class="p">,</span> <span class="s2">&quot;fontWeight&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="s2">&quot;margin&quot;</span><span class="p">:</span> <span class="s2">&quot;10px 0&quot;</span><span class="p">},</span>
+                <span class="p">),</span>
+                <span class="c1"># Description to be translated by the NMT model</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+                    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;description-container&quot;</span><span class="p">,</span>
+                    <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">P</span><span class="p">(</span>
+                            <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;description-p1&quot;</span><span class="p">,</span>
+                            <span class="n">children</span><span class="o">=</span><span class="p">(</span>
+                                <span class="s2">&quot;She is a captivating Turkish Angora with a unique charm. &quot;</span>
+                                <span class="s2">&quot;She is 3 years old. Her mesmerizing eyes, one a deep blue and the other a vibrant green, &quot;</span>
+                                <span class="s2">&quot;draw you in. With her long, silky fur and elegant posture, she exudes a sense of grace and mystery.&quot;</span>
+                            <span class="p">),</span>
+                        <span class="p">),</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">P</span><span class="p">(</span>
+                            <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;description-p2&quot;</span><span class="p">,</span>
+                            <span class="n">children</span><span class="o">=</span><span class="p">(</span>
+                                <span class="s2">&quot;Artemis is a curious and playful cat, always eager to explore her surroundings and engage in interactive play. &quot;</span>
+                                <span class="s2">&quot;She’s a true gem, adding a touch of magic to any home.&quot;</span>
+                            <span class="p">),</span>
+                        <span class="p">),</span>
+                    <span class="p">],</span>
+                <span class="p">),</span>
+                <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+                    <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;marginTop&quot;</span><span class="p">:</span> <span class="s2">&quot;20px&quot;</span><span class="p">,</span> <span class="s2">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;flex&quot;</span><span class="p">,</span> <span class="s2">&quot;justifyContent&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="s2">&quot;gap&quot;</span><span class="p">:</span> <span class="s2">&quot;50px&quot;</span><span class="p">},</span>
+                    <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
+                            <span class="s2">&quot;Adopt Now!&quot;</span><span class="p">,</span>
+                            <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                                <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;10px 20px&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;fontSize&quot;</span><span class="p">:</span> <span class="s2">&quot;1em&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s2">&quot;#f48cb7&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;borderRadius&quot;</span><span class="p">:</span> <span class="s2">&quot;20px&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;cursor&quot;</span><span class="p">:</span> <span class="s2">&quot;pointer&quot;</span><span class="p">,</span>
+                            <span class="p">},</span>
+                            <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;adopt-now&quot;</span><span class="p">,</span>
+                        <span class="p">),</span>
+                        <span class="c1"># Translate button</span>
+                        <span class="n">html</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span>
+                            <span class="s2">&quot;Nederlands&quot;</span><span class="p">,</span>
+                            <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                                <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;10px 20px&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;fontSize&quot;</span><span class="p">:</span> <span class="s2">&quot;1em&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s2">&quot;#f48cb7&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;border&quot;</span><span class="p">:</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;borderRadius&quot;</span><span class="p">:</span> <span class="s2">&quot;20px&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;cursor&quot;</span><span class="p">:</span> <span class="s2">&quot;pointer&quot;</span><span class="p">,</span>
+                            <span class="p">},</span>
+                            <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;translate-button&quot;</span><span class="p">,</span>
+                        <span class="p">),</span>
+                        
+                    <span class="p">],</span>
+                <span class="p">),</span>
+            <span class="p">],</span>
+        <span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># Callback to handle translation. It will update the description after the description is translated and then replace the english description with the dutch description</span>
+<div class="viewcode-block" id="translate_text">
+<a class="viewcode-back" href="../MT_interface_server.html#MT_interface_server.translate_text">[docs]</a>
+<span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">Output</span><span class="p">(</span><span class="s2">&quot;description-p1&quot;</span><span class="p">,</span> <span class="s2">&quot;children&quot;</span><span class="p">),</span> <span class="n">Output</span><span class="p">(</span><span class="s2">&quot;description-p2&quot;</span><span class="p">,</span> <span class="s2">&quot;children&quot;</span><span class="p">)],</span>
+    <span class="p">[</span><span class="n">Input</span><span class="p">(</span><span class="s2">&quot;translate-button&quot;</span><span class="p">,</span> <span class="s2">&quot;n_clicks&quot;</span><span class="p">)],</span>
+    <span class="p">[</span><span class="n">State</span><span class="p">(</span><span class="s2">&quot;description-p1&quot;</span><span class="p">,</span> <span class="s2">&quot;children&quot;</span><span class="p">),</span> <span class="n">State</span><span class="p">(</span><span class="s2">&quot;description-p2&quot;</span><span class="p">,</span> <span class="s2">&quot;children&quot;</span><span class="p">)],</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">translate_text</span><span class="p">(</span><span class="n">n_clicks</span><span class="p">,</span> <span class="n">text1</span><span class="p">,</span> <span class="n">text2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This function will return the translation and update the description part of the website by using </span>
+<span class="sd">    Callback to handle translation. It will update the description after the description is </span>
+<span class="sd">    translated and then replace the english description with the dutch</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># This function will return the translation and update the description part of the website</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">n_clicks</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">text1</span><span class="p">,</span> <span class="n">text2</span>  <span class="c1"># No translation yet, so do not update the description part</span>
+
+    <span class="c1"># Function to send text for translation, first it sends the description to the orchestrator then to the NMT model server</span>
+    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Function to send text for translation, first it sends the description to the orchestrator then to the NMT model server&#39;&#39;&#39;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;http://127.0.0.1:8051/translate&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">text</span><span class="p">})</span>
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;translated_text&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;Error: Translation failed&quot;</span>
+
+    <span class="c1"># Translate both paragraphs, only for testing whether NMT can handle to requests, can only send one long paragraph as well </span>
+    <span class="n">translated_text1</span> <span class="o">=</span> <span class="n">translate</span><span class="p">(</span><span class="n">text1</span><span class="p">)</span>
+    <span class="n">translated_text2</span> <span class="o">=</span> <span class="n">translate</span><span class="p">(</span><span class="n">text2</span><span class="p">)</span>
+    <span class="c1">#return the translation</span>
+    <span class="k">return</span> <span class="n">translated_text1</span><span class="p">,</span> <span class="n">translated_text2</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run_server</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">port</span><span class="o">=</span><span class="mi">8050</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Korosh_Rajaei.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
