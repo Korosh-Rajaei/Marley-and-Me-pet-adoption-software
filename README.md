@@ -9,7 +9,6 @@ Both MT and the description generator models are accessed and implemented throug
 Contributions:  
   -Python programming: Korosh Rajaei  
   -HTML/CSS and design of the interface: Emre Uysal, Amirhossein Shahsavari, Andrei Donea, Dinu Roşca
-  
   -OpenNMT training: Korosh Rajaei, Emre Uysal, Amirhossein Shahsavari  
   -Finding and the choice of the dataset for OpenNMT training: Linda Selles, Sterre Zwart  
     
