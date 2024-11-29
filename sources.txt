@@ -7,7 +7,7 @@ https://pythonbasics.org/flask-rest-api/
 https://www.dataquest.io/blog/unit-tests-python/  
 https://www.youtube.com/watch?v=etosV2IWBF0  
   
--MarianNMT: https://huggingface.co/docs/transformers/en/model_doc/marian  
+-MarianMT: https://huggingface.co/docs/transformers/en/model_doc/marian  
   
 -Tatoeba Dataset: https://opus.nlpl.eu/Tatoeba/en&nl/v2023-04-12/Tatoeba  
 
