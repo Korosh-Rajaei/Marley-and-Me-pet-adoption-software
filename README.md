@@ -11,6 +11,9 @@ Contributors:
   -HTML/CSS and design of the interface: Emre Uysal, Amirhossein Shahsavari  
   -OpenNMT training: Korosh Rajaei, Emre Uysal, Amirhossein Shahsavari  
   -Finding and the choice of the dataset for OpenNMT training: Linda Selles, Sterre Zwart  
+    
 Screenshots of interfaces and servers are also uploaded to the repository.   
+
+For more detailed documentation and information regarding the modules, download the documentation folder and open modules.html on a browser (e.g. chrome).   
   
 Note: when using the description generator model, for inputs, if there are not any values, fill the input with a space or a dot. For example, if the name of the animal is not known yet, you can put a space or dot instead. Not leaving the input empty will ensure that the description will be saved to the next stage where the description will be saved in a text file. This text file acts as a database. The model requires a value to be given however, even if the values were to be dots or spaces, the AI model would still be able to create a suitable description. 
